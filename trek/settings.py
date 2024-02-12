@@ -35,16 +35,16 @@ ALLOWED_HOSTS = [host for host in os.getenv('ALLOWED_HOSTS').split(',') if host 
 
 INSTALLED_APPS = [
     # 'daphne',
-    # 'admin_interface',
-    # 'colorfield',
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheader',
-    # 'drf_yasg',
+    'corsheaders',
+    'drf_yasg',
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
@@ -89,7 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'trek.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
