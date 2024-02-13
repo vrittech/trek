@@ -32,6 +32,7 @@ class HolidayDestination(models.Model):
     trekking_difficulty = models.CharField(max_length = 450)
     stay_type = models.CharField(max_length = 450)
     activities = models.CharField(max_length = 450)
+    duration_stay = models.IntegerField()
 
 
     description = models.TextField()
