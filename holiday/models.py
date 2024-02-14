@@ -27,6 +27,7 @@ class HolidayType(models.Model):
 class HolidayTrip(models.Model):
     public_id = models.UUIDField(default=uuid.uuid4,editable=False,unique=True)
     title = models.CharField(max_length = 450)
+    holiday_type = models.ForeignKey(HolidayType,on_delete = models.SET_NULL,null=True)
     slug = models.SlugField(unique = True,blank=True)
     short_description = models.CharField(max_length = 450,blank = True,null = True)
     price = models.FloatField(null = True,blank = True)

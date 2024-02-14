@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question,QuestionHaveAnswer,Testonomial
+from .models import Question,QuestionHaveAnswer,Testonomial,SiteSetting
 
 # Register your models here.
-admin.site.register([Question,QuestionHaveAnswer,Testonomial])
+admin.site.register([Question,QuestionHaveAnswer,Testonomial,SiteSetting])
