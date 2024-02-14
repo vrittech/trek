@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [host for host in os.getenv('ALLOWED_HOSTS').split(',') if host 
 
 INSTALLED_APPS = [
     # 'daphne',
-    'admin_interface',
+    # 'admin_interface',
     'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,9 +49,12 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_filters',
     'accounts',
-    'booking',
-    'services',
     'managements',
+    'holiday',
+    'services',
+    'booking',
+    'blog',
+    'report'
 ]
 
 # ASGI_APPLICATION = 'trek.asgi.application'
@@ -124,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'account.backend.EmailserBackend',
+    # 'accounts.backend.EmailserBackend',
 ]
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

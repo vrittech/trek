@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
     phone = models.CharField(max_length=15 ,unique=True,null=True , default = '')
     email = models.EmailField(max_length=255,unique=True)
     username = models.CharField(max_length=255,unique=True)  
-
+    country = models.CharField(max_length=255,default = '')  
     last_name = models.CharField(max_length=255,null = True,default = '')  
     dob = models.DateField(null= True,blank= True ) 
 
@@ -58,17 +58,4 @@ class CustomUser(AbstractUser):
         except:
             return self.username
 
-class ShippingAddress(models.Model):
-    public_id = models.UUIDField(default=uuid.uuid4,editable=False,unique=True)
-    profile = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    address_type = models.CharField(max_length=255, choices=[
-        ('home', 'Home Address'),
-        ('office', 'Office Address'),
-    ])
-    address = models.TextField()
-    location = models.CharField(max_length = 300)
-    contact_number = models.CharField(max_length = 50)
-
-    def __str__(self):
-        return str(self.profile.username) + ' '+ str(self.address_type)
 

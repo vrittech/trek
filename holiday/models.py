@@ -1,15 +1,19 @@
 from django.db import models
+from accounts.models import CustomUser
 import uuid
 from django.utils.text import slugify
+from django.core.validators import MaxValueValidator
+
    
 
 # Create your models here.
 class HolidayType(models.Model):
     public_id = models.UUIDField(default=uuid.uuid4,editable=False,unique=True)
-    name = models.Model(max_length = 400,unique = True)
+    name = models.CharField(max_length = 400,unique = True)
     slug = models.SlugField(unique = True,blank=True)
     description = models.TextField(null=True,blank=True)
     image = models.ImageField(upload_to="holiday/holiday_type_image/",null=True,blank=True)
+
     def __str__(self):
         return self.name
     
@@ -20,7 +24,7 @@ class HolidayType(models.Model):
         super().save(*args, **kwargs)
 
 
-class HolidayDestination(models.Model):
+class HolidayTrip(models.Model):
     public_id = models.UUIDField(default=uuid.uuid4,editable=False,unique=True)
     title = models.CharField(max_length = 450)
     slug = models.SlugField(unique = True,blank=True)
@@ -28,7 +32,7 @@ class HolidayDestination(models.Model):
     price = models.FloatField(null = True,blank = True)
     image = models.ImageField(upload_to="holiday/images/",null=True,blank=True)
     important_points = models.CharField(max_length = 450)
-    stars = models.IntegerField(default = 4)
+    # stars = models.IntegerField(default = 4)
     trekking_difficulty = models.CharField(max_length = 450)
     stay_type = models.CharField(max_length = 450)
     activities = models.CharField(max_length = 450)
@@ -43,6 +47,9 @@ class HolidayDestination(models.Model):
     equipment =  models.CharField(max_length = 450)
     useful_information =  models.CharField(max_length = 450)
     
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    
     def __str__(self):
         return self.title
     
@@ -53,8 +60,16 @@ class HolidayDestination(models.Model):
         super().save(*args, **kwargs)
 
 
-class HolidayDestinationHaveImages(models.Model):
-    holiday_destination = models.ForeignKey(HolidayDestination,related_name = "images")
+class HolidayTripHaveImages(models.Model):
+    holiday_destination = models.ForeignKey(HolidayTrip,related_name = "images",on_delete = models.CASCADE)
     image = models.ImageField(upload_to="holiday/images/",null=True,blank=True)
 
 
+class HolidayTripReview(models.Model):
+    user = models.ForeignKey(CustomUser,related_name="review",on_delete = models.CASCADE)
+    stars =  models.PositiveIntegerField(default = 1, validators=[MaxValueValidator(5)],help_text="Enter a number less than 5 stars")
+    comments = models.CharField(max_length = 2000)
+    holiday_trip = models.ForeignKey(HolidayTrip,related_name="review",on_delete = models.CASCADE)
+
+    def __str__(self) -> str:
+        return str(self.user.username)  + ':' + str('*' for i in range(self.stars))
