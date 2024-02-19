@@ -1,9 +1,9 @@
 from ..models import Blog
-from ..serializers.shipping_address_serializers import ShippingAddressReadSerializers,ShippingAddressWriteSerializers
+from ..serializers.blog_serializers import BlogReadSerializers,BlogWriteSerializers
 from ..utilities.importbase import *
 
-class ShippingAddressViewsets(viewsets.ModelViewSet):
-    serializer_class = ShippingAddressReadSerializers
+class BlogViewSets(viewsets.ModelViewSet):
+    serializer_class = BlogReadSerializers
     permission_classes = [AdminViewSetsPermission]
     authentication_classes = [JWTAuthentication]
     pagination_class = MyPageNumberPagination
@@ -11,6 +11,6 @@ class ShippingAddressViewsets(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.action in ['create','update','partial_update']:
-            return ShippingAddressWriteSerializers
+            return BlogWriteSerializers
         return super().get_serializer_class()
     

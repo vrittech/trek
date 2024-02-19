@@ -12,14 +12,6 @@ class CustomUserReadSerializer(serializers.ModelSerializer):
         # fields = '__all__' 
         exclude = ['password']
     
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        action = self.context['view'].action 
-        if action == "retrieve":
-            if instance.role == roles.USER or instance.role == roles.PUBLISHER:
-                total_blogs = instance.blogs.all().count()
-                representation['total_blogs'] = total_blogs
-        return representation
 
 class CustomUserReadLimitedSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,14 +37,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         # print(user.is_authenticated)
         if not user.is_authenticated:
-            if value == roles.USER or value == roles.PUBLISHER:
+            if value == roles.USER:
                 pass
             else:
                 raise serializers.ValidationError("You can only set USER,PUBLISHER as role") 
-        elif user.role==roles.SYSTEM_ADMIN:
-            return value
-        elif value == roles.PUBLISHER:
-            return value
         elif user.is_authenticated and value!=roles.USER:
                 raise serializers.ValidationError("You can only set USER as role") 
         return value
