@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from viewsets import blog_viewsets
+from .viewsets import blog_viewsets
 
 router = DefaultRouter()
 
