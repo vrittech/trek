@@ -33,20 +33,30 @@ class HolidayTrip(models.Model):
     price = models.FloatField(null = True,blank = True)
     image = models.ImageField(upload_to="holiday/images/",null=True,blank=True)
     important_points = models.CharField(max_length = 450)
-    # stars = models.IntegerField(default = 4)
-    trekking_difficulty = models.CharField(max_length = 450)
+
     stay_type = models.CharField(max_length = 450)
     activities = models.CharField(max_length = 450)
     duration_stay = models.IntegerField()
 
-
     description = models.TextField()
     map = models.URLField(null=True,blank=True)
     trip_information =  models.CharField(max_length = 450)
-    ltinerary =  models.CharField(max_length = 450)
+    nature_of_trip =  models.CharField(max_length = 450)
+    others =  models.CharField(max_length = 450)
+    trip_grade =  models.CharField(max_length = 450) #easy,medium,hard etc
+    max_altitude =  models.CharField(max_length = 450)
+    person = models.PositiveIntegerField() #number of person allowed
+    night_stay = models.PositiveIntegerField() #number of night stay
+    day_stay = models.PositiveIntegerField() #number of day stay
+
+    meals = models.CharField(max_length = 5000) #meals provided
+    best_seasosn = models.CharField(max_length = 3000)
+    ltinerary = models.TextField()
+
     weather =  models.CharField(max_length = 450)
     equipment =  models.CharField(max_length = 450)
     useful_information =  models.CharField(max_length = 450)
+    accomodation = models.CharField(max_length = 450) #hotel  restore etc
     
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
